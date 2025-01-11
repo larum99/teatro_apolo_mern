@@ -16,22 +16,23 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Configuración de las rutas
+// Ruta principal para verificar la conexión
+app.get("/", (req, res) => {
+  res.json({ message: "Bienvenido a la API del Teatro Apolo" });
+});
+
+// Conectar a la base de datos y luego inicializar las rutas
 (async () => {
   try {
     const connCinema = await connectDB();
 
+    // Configuración de las rutas
     app.use("/movies", movieRoutes);
     app.use("/users", userRoutes(connCinema));
     app.use("/rooms", roomsRoutes);
     app.use("/seats", seatsRoutes);
     app.use("/showtimes", showTimesRoutes);
     app.use("/tickets", ticketsRoutes);
-
-    // Ruta principal para verificar la conexión
-    app.get("/", (req, res) => {
-      res.json({ message: "Bienvenido a la API del Teatro Apolo" });
-    });
   } catch (error) {
     console.error("Error al conectar a la base de datos:", error.message);
     process.exit(1);
