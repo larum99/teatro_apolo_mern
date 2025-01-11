@@ -30,13 +30,12 @@ const getSingleMovie = async (req, res) => {
 // Obtener todas las películas de TMDb utilizando el endpoint now_playing
 const getNowPlayingMoviesFromTMDb = async (req, res) => {
   try {
-    // Hacer la solicitud a TMDb para obtener las películas en cartelera (now_playing)
     const response = await axios.get(`${TMDB_BASE_URL}/movie/now_playing`, {
       params: {
         api_key: TMDB_API_KEY,
         language: 'es-ES',
         page: 1,
-      }
+      },
     });
 
     const movies = response.data.results;

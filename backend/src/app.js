@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
     const connCinema = await connectDB();
 
     // Configuración de las rutas
-    app.use("/movies", movieRoutes);
+    app.use("/movies", movieRoutes); // Aquí se registran las rutas de películas
     app.use("/users", userRoutes(connCinema));
     app.use("/rooms", roomsRoutes);
     app.use("/seats", seatsRoutes);
