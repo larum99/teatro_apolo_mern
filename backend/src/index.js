@@ -1,5 +1,7 @@
 const app = require("./app");
 
+module.exports = app;
+
 // const PORT = process.env.PORT || 4200;
 
 // // Iniciar el servidor
