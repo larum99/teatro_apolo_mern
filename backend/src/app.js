@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 const movieRoutes = require("./routes/moviesRoutes");
 const userRoutes = require("./routes/usersRoutes");
 const roomsRoutes = require("./routes/roomsRoutes");
@@ -22,17 +22,16 @@ app.use(cors());
     const connCinema = await connectDB();
 
     app.use("/movies", movieRoutes);
-
     app.use("/users", userRoutes(connCinema));
-
     app.use("/rooms", roomsRoutes);
-
     app.use("/seats", seatsRoutes);
-
     app.use("/showtimes", showTimesRoutes);
-
     app.use("/tickets", ticketsRoutes);
-    
+
+    // Ruta principal para verificar la conexión
+    app.get("/", (req, res) => {
+      res.json({ message: "Bienvenido a la API del Teatro Apolo" });
+    });
   } catch (error) {
     console.error("Error al conectar a la base de datos:", error.message);
     process.exit(1);
