@@ -12,29 +12,9 @@ require("dotenv").config();
 // Crear la app de Express
 const app = express();
 
-// Configurar CORS
-const allowedOrigins = [
-  "https://teatro-apolo-mern-frontend.vercel.app", // URL del frontend en producción
-  "http://localhost:X", // Para pruebas en desarrollo
-];
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); // Permite el acceso
-      } else {
-        callback(new Error("CORS: Origen no permitido"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE"], // Métodos permitidos
-    allowedHeaders: ["Content-Type", "Authorization"], // Encabezados permitidos
-    credentials: true, // Permitir envío de cookies y credenciales
-  })
-);
-
-// Middleware para procesar JSON
+// Middlewares
 app.use(express.json());
+app.use(cors());
 
 // Ruta principal para verificar la conexión
 app.get("/", (req, res) => {
@@ -47,7 +27,7 @@ app.get("/", (req, res) => {
     const connCinema = await connectDB();
 
     // Configuración de las rutas
-    app.use("/movies", movieRoutes); // Rutas de películas
+    app.use("/movies", movieRoutes); // Aquí se registran las rutas de películas
     app.use("/users", userRoutes(connCinema));
     app.use("/rooms", roomsRoutes);
     app.use("/seats", seatsRoutes);
@@ -59,5 +39,4 @@ app.get("/", (req, res) => {
   }
 })();
 
-// Exportar la app
 module.exports = app;
