@@ -12,9 +12,28 @@ require("dotenv").config();
 // Crear la app de Express
 const app = express();
 
+// Configurar CORS
+const allowedOrigins = [
+  "https://teatro-apolo-mern-frontend.vercel.app", // Producción
+  "http://localhost:3000", // Desarrollo
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Permitir solicitudes sin origen (por ejemplo, Postman)
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("No permitido por CORS"));
+    },
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true, // Habilitar cookies/sesiones compartidas
+  })
+);
+
 // Middlewares
 app.use(express.json());
-app.use(cors());
 
 // Ruta principal para verificar la conexión
 app.get("/", (req, res) => {
