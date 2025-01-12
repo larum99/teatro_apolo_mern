@@ -14,7 +14,11 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "https://teatro-apolo-mern-frontend.vercel.app/",
+  methods: "GET,POST,PUT,DELETE", // Métodos permitidos
+  allowedHeaders: "Content-Type,Authorization", // Encabezados permitidos
+}));
 
 // Ruta principal para verificar la conexión
 app.get("/", (req, res) => {
