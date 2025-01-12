@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/authContext";
 
 const ProtectedRoute = ({ children, allowedRoles = [] }) => {
     const { isLoggedIn, role } = useAuth();

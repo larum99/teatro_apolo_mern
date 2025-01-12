@@ -3,7 +3,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useAuth } from '../context/authContextuthContext';
+import { useAuth } from '../context/authContext';
 import Link from "next/link";
 
 export default function LoginForm() {
