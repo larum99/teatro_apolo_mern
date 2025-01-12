@@ -8,18 +8,18 @@ const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const getSingleMovie = async (req, res) => {
   const { id } = req.params;
   try {
-    const response = await axios.get(`${TMDB_BASE_URL}/movie/now_playing`, {
+    const response = await axios.get(`${TMDB_BASE_URL}/movie/${id}`, {
       params: {
         api_key: TMDB_API_KEY,
         language: 'es-ES',
       },
     });
 
-    const movies = response.data.results;
-    if (movies.length > 0) {
-      res.json(movies[0]); // Devuelve la primera película en cartelera
+    const movie = response.data;
+    if (movie) {
+      res.json(movie); // Devuelve la película encontrada
     } else {
-      res.status(404).json({ message: 'No se encontraron películas.' });
+      res.status(404).json({ message: 'No se encontró la película.' });
     }
   } catch (error) {
     console.error('Error al obtener datos de TMDB:', error);
@@ -55,9 +55,9 @@ const getNowPlayingMoviesFromTMDb = async (req, res) => {
 const getAllMoviesFromTMDb = async (req, res) => {
   try {
     // Hacer la solicitud a TMDb para obtener todas las películas
-    const response = await axios.get(`${process.env.TMDB_BASE_URL}/discover/movie`, {
+    const response = await axios.get(`${TMDB_BASE_URL}/discover/movie`, {
       params: {
-        api_key: process.env.TMDB_API_KEY,
+        api_key: TMDB_API_KEY,
         language: 'es-ES',
         page: 1,
         sort_by: 'popularity.desc'
@@ -77,4 +77,4 @@ const getAllMoviesFromTMDb = async (req, res) => {
   }
 };
 
-module.exports = {   getAllMoviesFromTMDb, getNowPlayingMoviesFromTMDb, getSingleMovie };
+module.exports = { getAllMoviesFromTMDb, getNowPlayingMoviesFromTMDb, getSingleMovie };
