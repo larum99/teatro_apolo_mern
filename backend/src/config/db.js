@@ -3,9 +3,7 @@ require("dotenv").config();
 
 const connectDB = async () => {
   try {
-    const connCinema = await mongoose.connect(process.env.MONGO_URI_CINEMA, {
-      ssl: true,
-    });
+    const connCinema = await mongoose.connect(process.env.MONGO_URI_CINEMA);
     console.log(`Conectado a la base de datos cinema en MongoDB Atlas: ${connCinema.connection.host}`);
     return connCinema; // Solo una conexión
   } catch (error) {
