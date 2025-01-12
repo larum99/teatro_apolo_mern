@@ -12,8 +12,6 @@ require("dotenv").config();
 // Crear la app de Express
 const app = express();
 
-const cors = require("cors");
-
 // Configurar CORS
 const allowedOrigins = [
   "https://teatro-apolo-mern-frontend.vercel.app", // Producción
