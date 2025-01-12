@@ -1,5 +1,6 @@
 'use client';
 import Link from "next/link";
+import Image from 'next/image';
 
 const MovieCard = ({ movie, genres }) => {
     const movieGenres = movie.genre_ids.map((id) => genres[id]).join(', ');
@@ -7,7 +8,7 @@ const MovieCard = ({ movie, genres }) => {
     return (
         <Link href={`/movie/${movie.id}`} passHref>
             <div className="flex-none w-64 p-2 bg-primary rounded-lg shadow-md transform transition-transform hover:scale-110">
-                <img
+                <Image
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={movie.title}
                     className="w-full h-[400px] rounded-lg"

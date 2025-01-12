@@ -6,6 +6,7 @@ import SelectShowtimeGrid from '@/components/SelectShowtimeGrid';
 import SelectSeat from '@/components/SelectSeat';
 import Ticket from '@/components/Ticket';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import Image from 'next/image';
 
 const SelectShowtime = ({ params }) => {
     const { id: movieId } = React.use(params);
@@ -67,7 +68,7 @@ const SelectShowtime = ({ params }) => {
                 <MovieHeader title={movie?.title} />
                 <div className="flex flex-col lg:flex-row gap-6 m-6 items-start">
                     {movie ? (
-                        <img
+                        <Image
                             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                             alt={movie.title}
                             className="w-72 h-auto max-h-[450px] rounded-lg object-cover"
