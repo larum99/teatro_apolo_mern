@@ -17,10 +17,13 @@ export default function LoginForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:4200/users/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/login`,
+        {
+          email,
+          password,
+        }
+      );
 
       // Guarda el token y actualiza el estado global
       localStorage.setItem("token", response.data.token);
