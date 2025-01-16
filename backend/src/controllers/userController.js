@@ -12,13 +12,17 @@ const registerUser = async (req, res, User) => {
     idNumber,
     birthDate,
     phoneNumber,
-    role = user,
+    role,
   } = req.body;
 
   console.log("Datos recibidos en el backend:", req.body);
 
   if (password !== confirmPassword) {
     return res.status(400).json({ message: "Las contraseñas no coinciden" });
+  }
+
+  if (role && role !== "user") {
+    return res.status(403).json({ message: "No puedes asignar este rol." });
   }
 
   try {
@@ -31,8 +35,9 @@ const registerUser = async (req, res, User) => {
       idNumber,
       birthDate,
       phoneNumber,
-      role,
+      role: role || "user",
     });
+    
     await newUser.save();
     res.status(201).json({ message: "Usuario registrado exitosamente" });
   } catch (err) {

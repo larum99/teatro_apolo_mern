@@ -21,16 +21,17 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Permitir solicitudes sin origen (por ejemplo, Postman)
+      console.log("Solicitud desde origen:", origin); // Log para depurar
       if (!origin || allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
       return callback(new Error("No permitido por CORS"));
     },
     methods: "GET,POST,PUT,DELETE",
-    credentials: true, // Habilitar cookies/sesiones compartidas
+    credentials: true,
   })
 );
+
 
 // Middlewares
 app.use(express.json());
