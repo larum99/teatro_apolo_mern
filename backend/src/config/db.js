@@ -6,7 +6,7 @@ const connectDB = async () => {
     console.log("URI:", process.env.MONGO_URI_CINEMA.replace(/\/\/.*:.*@/, "//***:***@"));
 
     const connCinema = await mongoose.connect(process.env.MONGO_URI_CINEMA);
-    console.log("URI completa:", process.env.MONGO_URI_CINEMA);
+
     console.log("Conectado:", connCinema.connection.host);
   } catch (error) {
     console.error(error);
