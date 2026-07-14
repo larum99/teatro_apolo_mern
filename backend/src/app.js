@@ -1,4 +1,5 @@
-const cors = require("cors");const express = require("express");
+const cors = require("cors");
+const express = require("express");
 
 const movieRoutes = require("./routes/moviesRoutes");
 const userRoutes = require("./routes/usersRoutes");
@@ -55,7 +56,7 @@ app.get("/", (req, res) => {
     app.use("/tickets", ticketsRoutes);
   } catch (error) {
     console.error("Error al conectar a la base de datos:", error.message);
-    process.exit(1);
+    //process.exit(1);
   }
 })();
 
