@@ -35,6 +35,7 @@ app.use(
 app.use(express.json());
 
 
+// Ruta principal
 app.get("/", (req, res) => {
   res.json({
     message: "Bienvenido a la API del Teatro Apolo",
@@ -42,26 +43,21 @@ app.get("/", (req, res) => {
 });
 
 
-// Registrar rutas que no dependen directamente de conexión
+// Registrar todas las rutas inmediatamente
 app.use("/movies", movieRoutes);
+app.use("/users", userRoutes);
 app.use("/rooms", roomsRoutes);
 app.use("/seats", seatsRoutes);
 app.use("/showtimes", showTimesRoutes);
 app.use("/tickets", ticketsRoutes);
 
 
-// Inicializar conexión y rutas dependientes
-let dbReady = false;
-
+// Conexión a MongoDB
 connectDB()
   .then((connCinema) => {
     console.log(
       `MongoDB conectado: ${connCinema.connection.host}`
     );
-
-    app.use("/users", userRoutes(connCinema));
-
-    dbReady = true;
   })
   .catch((error) => {
     console.error(
@@ -71,6 +67,7 @@ connectDB()
   });
 
 
+// Rutas inexistentes
 app.use((req, res) => {
   res.status(404).json({
     message: `Ruta no encontrada: ${req.method} ${req.originalUrl}`,
